@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动 -->
+	<classPathEntry
+			location="D:\Users\workspace\.m2\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+	<context id="context1" targetRuntime="MyBatis3">
+		<!--  <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+                <property name="searchString" value="Example$"/>
+                <property name="replaceString" value="Criteria"/>
+            </plugin> -->
+		<!-- 配置生成pojo的序列化的插件，mybatis支持很多插件，这些插件都在 org.mybatis.generator.plugins包下  -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+		<!-- 配置生成pojo的toString()方法的插件，mybatis支持很多插件，这些插件都在 org.mybatis.generator.plugins包下 -->
+		 <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+		<!-- 禁用mybatis插件自动生成的注释 -->
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接串配置 -->
+		<jdbcConnection
+				connectionURL="jdbc:mysql://www.rapdog.cn:3306/rapbot"
+				driverClass="com.mysql.jdbc.Driver"
+				password="6627221lt" userId="root"
+		></jdbcConnection>
+
+		<!-- 类型转换器 -->
+		<javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<!--
+                true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+                false：默认,
+                    scale>0;length>18：使用BigDecimal;
+                    scale=0;length[10,18]：使用Long；
+                    scale=0;length[5,9]：使用Integer；
+                    scale=0;length<5：使用Short；
+             -->
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+
+		<!-- java实体类配置 -->
+		<javaModelGenerator
+				targetPackage="com.rapdog.rapbot.bean.bo"
+				targetProject="src/main/java" />
+
+		<!-- sqlMap映射xml配置 -->
+		<sqlMapGenerator
+				targetPackage="mybatis.mapper"
+				targetProject="src/main/resources" />
+		<!-- mybatis接口类配置 -->
+		<javaClientGenerator
+				targetPackage="com.rapdog.rapbot.mapper"
+				targetProject="src/main/java"
+				type="XMLMAPPER" />
+
+
+		<table tableName="custom_command_group_rlt" enableCountByExample="true"
+			   enableUpdateByExample="true" enableDeleteByExample="true"
+			   enableSelectByExample="true" selectByExampleQueryId="true" >
+		</table>
+
+	</context>
+</generatorConfiguration>

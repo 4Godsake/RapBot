@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rapdog.rapbot.mapper.CustomCommandMapper">
+  <resultMap id="BaseResultMap" type="com.rapdog.rapbot.bean.bo.CustomCommand">
+    <id column="command_str" jdbcType="VARCHAR" property="commandStr" />
+    <result column="reply_str" jdbcType="VARCHAR" property="replyStr" />
+    <result column="create_qid" jdbcType="BIGINT" property="createQid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="RltResultMap" type="com.rapdog.rapbot.bean.bo.CustomCommand">
+    <id column="command_str" jdbcType="VARCHAR" property="commandStr" />
+    <result column="reply_str" jdbcType="VARCHAR" property="replyStr" />
+    <result column="create_qid" jdbcType="BIGINT" property="createQid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection property="activeGroups" ofType="Long">
+      <result column="active_group"/>
+    </collection>
+  </resultMap>
+
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    command_str, reply_str, create_qid, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.rapdog.rapbot.bean.bo.CustomCommandExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from custom_command
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from custom_command
+    where command_str = #{commandStr,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from custom_command
+    where command_str = #{commandStr,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rapdog.rapbot.bean.bo.CustomCommandExample">
+    delete from custom_command
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rapdog.rapbot.bean.bo.CustomCommand">
+    insert into custom_command (command_str, reply_str, create_qid, 
+      create_time, update_time)
+    values (#{commandStr,jdbcType=VARCHAR}, #{replyStr,jdbcType=VARCHAR}, #{createQid,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rapdog.rapbot.bean.bo.CustomCommand">
+    insert into custom_command
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandStr != null">
+        command_str,
+      </if>
+      <if test="replyStr != null">
+        reply_str,
+      </if>
+      <if test="createQid != null">
+        create_qid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandStr != null">
+        #{commandStr,jdbcType=VARCHAR},
+      </if>
+      <if test="replyStr != null">
+        #{replyStr,jdbcType=VARCHAR},
+      </if>
+      <if test="createQid != null">
+        #{createQid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rapdog.rapbot.bean.bo.CustomCommandExample" resultType="java.lang.Long">
+    select count(*) from custom_command
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update custom_command
+    <set>
+      <if test="record.commandStr != null">
+        command_str = #{record.commandStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyStr != null">
+        reply_str = #{record.replyStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createQid != null">
+        create_qid = #{record.createQid,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update custom_command
+    set command_str = #{record.commandStr,jdbcType=VARCHAR},
+      reply_str = #{record.replyStr,jdbcType=VARCHAR},
+      create_qid = #{record.createQid,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rapdog.rapbot.bean.bo.CustomCommand">
+    update custom_command
+    <set>
+      <if test="replyStr != null">
+        reply_str = #{replyStr,jdbcType=VARCHAR},
+      </if>
+      <if test="createQid != null">
+        create_qid = #{createQid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where command_str = #{commandStr,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rapdog.rapbot.bean.bo.CustomCommand">
+    update custom_command
+    set reply_str = #{replyStr,jdbcType=VARCHAR},
+      create_qid = #{createQid,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where command_str = #{commandStr,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectAllRlt" resultMap="RltResultMap">
+    select
+        a.command_str, a.reply_str, a.create_qid, a.create_time, a.update_time, b.active_group
+    from custom_command a
+    left join custom_command_group_rlt b
+    on a.command_str = b.command_str
+  </select>
+
+  <select id="selectRltByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+      a.command_str, a.reply_str, a.create_qid, a.create_time, a.update_time, b.active_group
+    from custom_command a
+    left join custom_command_group_rlt b
+    on binary a.command_str = b.command_str
+    where binary a.command_str = #{commandStr,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,16 @@
+server:
+    port: 8181
+# 增加数据库连接
+spring:
+    datasource:
+        url: jdbc:mysql://www.rapdog.cn:3306/rapbot?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: 6627221lt
+        driver-class-name: com.mysql.cj.jdbc.Driver
+bot:
+    id: 864812731
+    admin: 1025744898
+
+mybatis:
+    mapper-locations:
+        - classpath*:mybatis/mapper/*.xml
