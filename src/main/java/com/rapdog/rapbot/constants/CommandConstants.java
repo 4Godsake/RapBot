@@ -12,6 +12,10 @@ public class CommandConstants {
 
     public static final String TS = "/ts";
 
+    public static final String WEATHER = "/weather";
+
+    public static final String WEATHER_CHINESE = "天气";
+
     public static final String TRUE = "true";
 
     public static final String FALSE = "false";
@@ -20,5 +24,5 @@ public class CommandConstants {
 
     public static final String F = "f";
 
-    public static final String[] ALL_COMMAND = new String[]{REPEAT, REPLY, TS};
+    public static final String[] ALL_COMMAND = new String[]{REPEAT, REPLY, TS, WEATHER};
 }

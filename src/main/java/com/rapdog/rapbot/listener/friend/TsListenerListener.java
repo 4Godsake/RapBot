@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -30,6 +31,7 @@ import java.util.List;
 public class TsListenerListener {
 
     private static final Logger logger = LoggerFactory.getLogger(TsListenerListener.class);
+
     private static final String HOST = "www.rapdog.cn";
 
     private static final String SERVER_ADMIN = "serveradmin";
@@ -80,7 +82,8 @@ public class TsListenerListener {
                 logger.info("clientId{} just join",e.getClientId());
                 logger.info("{}",e);
                 if (!e.get("client_nickname").contains("serveradmin")){
-                    event.getBot().getGroup(new LongID(864386252)).sendBlocking(e.get("client_nickname")+" 进入了TS，并高呼：“英雄集结！”");
+                    Objects.requireNonNull(event.getBot().getGroup(new LongID(864386252)))
+                            .sendBlocking(e.get("client_nickname")+" 进入了TS，并高呼：“英雄集结！”");
                 }
             }
 
