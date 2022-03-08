@@ -16,6 +16,14 @@ public class CommandConstants {
 
     public static final String WEATHER_CHINESE = "天气";
 
+    public static final String COV = "/cov";
+
+    public static final String RISK_REGION = "/riskRegion";
+
+    public static final String RISK_REGION_CHINESE_1 = "风险地区";
+
+    public static final String RISK_REGION_CHINESE_2 = "高危地区";
+
     public static final String TRUE = "true";
 
     public static final String FALSE = "false";
