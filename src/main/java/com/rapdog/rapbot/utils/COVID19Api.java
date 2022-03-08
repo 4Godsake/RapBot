@@ -75,9 +75,11 @@ public class COVID19Api {
 
     public static String getHighRiskRegion(){
         if (CharSequenceUtil.isEmpty(highRiskRegion)){
+            logger.info("高危地区信息为空，开始获取...");
             initHighRiskRegion();
         }else {
-            if (DateUtil.currentSeconds()-updateDate > 43200L){
+            if (DateUtil.currentSeconds()-updateDate > Long.valueOf("43200")){
+                logger.info("高危地区信息过期，重新获取...");
                 initHighRiskRegion();
             }
         }
