@@ -1,25 +1,16 @@
-package com.rapdog.rapbot.listener.friend;
+package com.rapdog.rapbot.listener;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
 import com.github.theholywaffle.teamspeak3.api.event.*;
-import com.github.theholywaffle.teamspeak3.api.exception.TS3CommandFailedException;
-import com.rapdog.rapbot.constants.CommandConstants;
-import love.forte.simboot.annotation.Filter;
 import love.forte.simboot.annotation.Listener;
-import love.forte.simboot.filter.MatchType;
-import love.forte.simbot.Bot;
-import love.forte.simbot.ID;
 import love.forte.simbot.LoggerFactory;
 import love.forte.simbot.LongID;
-import love.forte.simbot.component.mirai.event.MiraiFriendMessageEvent;
-import love.forte.simbot.definition.Group;
+import love.forte.simbot.component.mirai.event.MiraiBotStartedEvent;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -28,9 +19,9 @@ import java.util.Objects;
  * @author rapdog
  */
 @Component
-public class TsListenerListener {
+public class TsListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(TsListenerListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(TsListener.class);
 
     private static final String HOST = "www.rapdog.cn";
 
@@ -40,11 +31,9 @@ public class TsListenerListener {
 
     private static final String BOT_NAME = "serveradmin";
 
-    @Filter(value = CommandConstants.TS, matchType = MatchType.TEXT_EQUALS_IGNORE_CASE)
     @Listener
-    public void listen(MiraiFriendMessageEvent event) {
-        logger.info("收到/ts指令，开始处理...");
-        logger.info("start listening");
+    public void listen(MiraiBotStartedEvent event) {
+        logger.info("bot started, start listening ts server");
         final TS3Config config = new TS3Config();
         config.setHost(HOST);
         config.setEnableCommunicationsLogging(true);
@@ -53,10 +42,6 @@ public class TsListenerListener {
         final TS3Api api = query.getApi();
         api.login(SERVER_ADMIN, PASSWORD);
         api.selectVirtualServerById(1);
-//        try{
-//            api.setNickname(BOT_NAME);
-//        }catch (TS3CommandFailedException ignore){
-//        }
         api.registerAllEvents();
         api.addTS3Listeners(new TS3Listener() {
             @Override
@@ -81,7 +66,7 @@ public class TsListenerListener {
             public void onClientJoin(ClientJoinEvent e) {
                 logger.info("clientId{} just join",e.getClientId());
                 logger.info("{}",e);
-                if (!e.get("client_nickname").contains("serveradmin")){
+                if (!e.get("client_nickname").contains(BOT_NAME)){
                     Objects.requireNonNull(event.getBot().getGroup(new LongID(864386252)))
                             .sendBlocking(e.get("client_nickname")+" 进入了TS，并高呼：“英雄集结！”");
                 }
@@ -127,8 +112,6 @@ public class TsListenerListener {
                 // ...
             }
         });
-
-
-        logger.info("/ts指令，处理完成...");
+        logger.info("tsServer listener started...");
     }
 }
