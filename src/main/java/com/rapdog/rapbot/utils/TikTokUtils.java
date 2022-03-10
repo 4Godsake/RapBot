@@ -7,7 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class TikTokUtils {
 
@@ -44,7 +47,8 @@ public class TikTokUtils {
             ImageIO.write(subImage, "png", screen);
             String verCode = VerifiCodeUtils.crack(ImageUtils.convertFileToBase64(screen));
             logger.info("获取的验证码为：{}",verCode);
-            screen.delete();
+            boolean deleteFlag = screen.delete();
+            logger.info("验证码图片删除状态：{}", deleteFlag);
             webDriver.findElement(By.cssSelector("body > section > div > div > article > div.formdiv > section > form > div:nth-child(2) > div > input"))
                     .sendKeys(verCode);
             webDriver.findElement(By.id("url")).sendKeys(targetUrl);
@@ -70,6 +74,33 @@ public class TikTokUtils {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+
+    public static void downloadNet(String linkUrl, String downloadPath) throws MalformedURLException {
+        // 下载网络文件
+        int byteSum = 0;
+        int byteRead = 0;
+
+        URL url = new URL(linkUrl);
+        try {
+            URLConnection conn = url.openConnection();
+            try(FileOutputStream fs = new FileOutputStream(downloadPath);
+                InputStream inStream = conn.getInputStream()) {
+                byte[] buffer = new byte[1204];
+                while ((byteRead = inStream.read(buffer)) != -1) {
+                    byteSum += byteRead;
+                    fs.write(buffer, 0, byteRead);
+                }
+                logger.info("下载完成，文件位置：{} —— 文件大小：{}",downloadPath,byteSum);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }

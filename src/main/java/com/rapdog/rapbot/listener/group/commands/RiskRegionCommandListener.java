@@ -23,7 +23,7 @@ public class RiskRegionCommandListener {
     private static final Logger logger = LoggerFactory.getLogger(RiskRegionCommandListener.class);
 
     @Filter(value = CommandConstants.RISK_REGION, matchType = MatchType.TEXT_EQUALS_IGNORE_CASE,
-            or = @Filters(value = {@Filter(value = CommandConstants.RISK_REGION_CHINESE_1, matchType = MatchType.TEXT_EQUALS),
+            or = @Filters(value = {@Filter(value = CommandConstants.RISK_REGION_CHINESE_1, matchType = MatchType.TEXT_ENDS_WITH),
                     @Filter(value = CommandConstants.RISK_REGION_CHINESE_2, matchType = MatchType.TEXT_EQUALS)}))
     @Listener
     public void listen(MiraiGroupMessageEvent event) {

@@ -1,17 +1,29 @@
 package com.rapdog.rapbot.listener.group;
 
 import cn.hutool.core.text.CharSequenceUtil;
+import com.rapdog.rapbot.utils.MessageSendUtils;
 import com.rapdog.rapbot.utils.TikTokUtils;
 import love.forte.simboot.annotation.Filter;
 import love.forte.simboot.annotation.Listener;
 import love.forte.simboot.filter.MatchType;
+import love.forte.simbot.Identifies;
 import love.forte.simbot.LoggerFactory;
+import love.forte.simbot.component.mirai.MiraiViaBotFileConfiguration;
 import love.forte.simbot.component.mirai.event.MiraiGroupMessageEvent;
 import love.forte.simbot.component.mirai.event.MiraiReceivedMessageContent;
+import love.forte.simbot.message.*;
+import love.forte.simbot.resources.FileResource;
+import net.mamoe.mirai.internal.message.FileMessageImpl;
+import net.mamoe.mirai.internal.message.FileMessageImplKt;
 import net.mamoe.mirai.message.data.MessageChain;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,12 +50,25 @@ public class TiktokShareListener {
         if (CharSequenceUtil.isEmpty(shareUrl)){
             event.sendBlocking("解析分享链接失败，请检查");
         }else{
+            String downLoadPath = System.getProperty("java.io.tmpdir") +
+                    "\\"+event.getAuthor().getNickOrUsername()+System.currentTimeMillis()+".mp4";
             try {
                 logger.info("开始解析视频地址...");
-                event.sendBlocking("视频地址：\n"+TikTokUtils.getVideoUrl(shareUrl));
-                logger.info("解析视频地址成功！");
+                String videoUrl = TikTokUtils.getVideoUrl(shareUrl);
+                logger.info("解析视频地址成功！开始下载视频...");
+                TikTokUtils.downloadNet(videoUrl,downLoadPath);
+                logger.info("下载完成！开始上传群文件...");
+                File video = new File(downLoadPath);
+                MessageSendUtils.sendGroupFile(event,video);
+                logger.info("抖音分享视频解析上传完成");
             }catch (Exception e){
                 event.sendBlocking(e.getMessage());
+            }finally {
+                File video = new File(downLoadPath);
+                if (video.exists()){
+                    boolean delete = video.delete();
+                    logger.info("删除视频临时文件：{}",delete);
+                }
             }
         }
     }
