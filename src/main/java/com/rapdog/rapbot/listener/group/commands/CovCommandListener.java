@@ -20,7 +20,7 @@ public class CovCommandListener {
 
     private static final Logger logger = LoggerFactory.getLogger(CovCommandListener.class);
 
-    @Filter(value = CommandConstants.COV, matchType = MatchType.TEXT_EQUALS_IGNORE_CASE)
+    @Filter(value = CommandConstants.COV, matchType = MatchType.TEXT_STARTS_WITH)
     @Listener
     public void listen(MiraiGroupMessageEvent event) {
         logger.info("收到/cov指令，开始处理...");

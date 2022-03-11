@@ -38,7 +38,7 @@ public class VerifiCodeUtils {
     }
 
     public static String crack(String base64Img){
-        logger.info(base64Img);
+        logger.info("开始解析验证码图片...");
         Map<String,Object> params = new HashMap<>();
         params.put("image",base64Img);
         params.put("userkey",getUserKey());

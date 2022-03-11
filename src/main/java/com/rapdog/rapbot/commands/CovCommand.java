@@ -37,7 +37,16 @@ public class CovCommand extends BaseCommand {
     @Override
     public void doCommand() {
         logger.info("sending cov info");
-        this.getEvent().sendBlocking(COVID19Api.getCovChinaOverview());
+        if (this.getCommandArgs().isEmpty()){
+            this.getEvent().sendBlocking(COVID19Api.getCovChinaOverview());
+        }else {
+            if ("now".equals(this.getCommandArgs().get(0))){
+                this.getEvent().sendBlocking(COVID19Api.getCovData().getCovNowAllTreeData());
+            }else if ("add".equals(this.getCommandArgs().get(0))){
+                this.getEvent().sendBlocking(COVID19Api.getCovData().getCovAddAllTreeData());
+            }
+        }
+
     }
 
 

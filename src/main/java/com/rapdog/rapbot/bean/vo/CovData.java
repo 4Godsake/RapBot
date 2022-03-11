@@ -1,5 +1,7 @@
 package com.rapdog.rapbot.bean.vo;
 
+import cn.hutool.core.date.DateUtil;
+
 import java.util.Date;
 import java.util.List;
 
@@ -75,4 +77,43 @@ public class CovData {
                 .append(chinaAdd.getDead() > 0 ? "+"+chinaAdd.getDead() : chinaAdd.getDead());
         return sb.toString();
     }
+
+    /**
+     * 现有确诊
+     * @return
+     */
+    public String getCovNowAllTreeData(){
+        StringBuilder sb = new StringBuilder("【国内现有确诊情况】");
+        sb.append("截至 ").append(DateUtil.formatDateTime(this.getLastUpdateTime()));
+        this.getAreaTree().forEach(lev1 -> {
+            lev1.getChildren().forEach(lev2 -> {
+                if (lev2.getTotal().getNowConfirm() > 0){
+                    sb.append("\n");
+                    lev2.traversalNowConfirmTree(sb);
+                }
+
+            });
+        });
+        return sb.toString();
+    }
+
+    /**
+     * 现有确诊
+     * @return
+     */
+    public String getCovAddAllTreeData(){
+        StringBuilder sb = new StringBuilder("【国内新增情况】");
+        sb.append("截至 ").append(DateUtil.formatDateTime(this.getLastUpdateTime()));
+        this.getAreaTree().forEach(lev1 -> {
+            lev1.getChildren().forEach(lev2 -> {
+                if (lev2.getToday().getConfirm()>0){
+                    sb.append("\n");
+                    lev2.traversalTodayConfirmTree(sb);
+                }
+            });
+        });
+        return sb.toString();
+    }
+
+
 }

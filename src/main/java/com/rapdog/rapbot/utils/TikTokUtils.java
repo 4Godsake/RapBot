@@ -45,6 +45,7 @@ public class TikTokUtils {
             BufferedImage subImage= ImageIO.read(screen).getSubimage(rect.x, 0, rect.getWidth(), rect.getHeight());
             // 存为png格式
             ImageIO.write(subImage, "png", screen);
+            logger.info("截取验证码图片");
             String verCode = VerifiCodeUtils.crack(ImageUtils.convertFileToBase64(screen));
             logger.info("获取的验证码为：{}",verCode);
             boolean deleteFlag = screen.delete();

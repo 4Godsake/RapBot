@@ -36,8 +36,26 @@ public class COVID19Api {
 
     private static long updateDate;
 
+    /**
+     * 国内总览
+     * @return
+     */
     public static String getCovChinaOverview(){
         return getCovData().getChinaOverview();
+    }
+
+    /**
+     * 现有确诊
+     * @return
+     */
+    public static String getCovNowAllTreeData(){
+        CovData covData = getCovData();
+        StringBuilder sb = new StringBuilder("截至 "+covData.getLastUpdateTime().toString());
+        covData.getAreaTree().forEach(lev1 -> {
+//            sb.append(lev1.getName().)
+            lev1.getTotal().getNowConfirm();
+        });
+        return "";
     }
 
     public static CovData getCovData(){
@@ -86,4 +104,8 @@ public class COVID19Api {
         return highRiskRegion;
     }
 
+    @Test
+    public void test(){
+        logger.info(getCovData().getCovAddAllTreeData());
+    }
 }

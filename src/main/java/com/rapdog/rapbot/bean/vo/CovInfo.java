@@ -58,4 +58,35 @@ public class CovInfo {
         sb.append('}');
         return sb.toString();
     }
+
+    public void traversalNowConfirmTree(StringBuilder sb){
+        if (this.getTotal().getNowConfirm() > 0){
+            sb.append(this.getName())
+                    .append(this.getTotal().getNowConfirm())
+                    .append("例，");
+            if (this.getChildren() != null && !this.getChildren().isEmpty()){
+                sb.append("其中");
+                this.getChildren().forEach(covInfo -> {
+                    covInfo.traversalNowConfirmTree(sb);
+                });
+            }
+        }
+    }
+
+    public void traversalTodayConfirmTree(StringBuilder sb){
+        if (this.getToday().getConfirm() > 0){
+            sb.append("「")
+                    .append(this.getName())
+                    .append("」")
+                    .append("新增")
+                    .append(this.getToday().getConfirm())
+                    .append("例，");
+            if (this.getChildren() != null && !this.getChildren().isEmpty()){
+                sb.append("其中");
+                this.getChildren().forEach(covInfo -> {
+                    covInfo.traversalTodayConfirmTree(sb);
+                });
+            }
+        }
+    }
 }
