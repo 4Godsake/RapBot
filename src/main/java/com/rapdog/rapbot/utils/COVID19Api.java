@@ -15,7 +15,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -81,6 +80,7 @@ public class COVID19Api {
         List<WebElement> webElements = webDriver.findElements(By.className("h-header"));
         webElements.forEach(webElement -> sb.append("\n>>> ").append(webElement.getText()));
         webDriver.close();
+        webDriver.quit();
         return sb.toString();
     }
 
@@ -96,7 +96,7 @@ public class COVID19Api {
             logger.info("高危地区信息为空，开始获取...");
             initHighRiskRegion();
         }else {
-            if (DateUtil.currentSeconds()-updateDate > Long.valueOf("43200")){
+            if (DateUtil.currentSeconds()-updateDate > Long.parseLong("43200")){
                 logger.info("高危地区信息过期，重新获取...");
                 initHighRiskRegion();
             }

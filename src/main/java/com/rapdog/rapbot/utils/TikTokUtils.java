@@ -66,6 +66,7 @@ public class TikTokUtils {
             return videoUrl;
         }finally {
             webDriver.close();
+            webDriver.quit();
         }
     }
 

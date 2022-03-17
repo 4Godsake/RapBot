@@ -50,10 +50,19 @@ public class WeatherApi {
                     .replace("${feelsLike}",nowInfo.getFeelsLike())
                     .replace("${windDir}", nowInfo.getWindDir())
                     .replace("${windScale}", nowInfo.getWindScale())
-                    .replace("${humidity}",nowInfo.getHumidity())
-                    .replace("${category}",airInfo.getCategory())
-                    .replace("${aqi}", airInfo.getAqi())
-                    .replace("${primary}", !NA.equals(airInfo.getPrimary()) ? "，当前主要污染物:"+airInfo.getPrimary() : "");
+                    .replace("${humidity}",nowInfo.getHumidity());
+            if (airInfo != null){
+                result = result
+                        .replace("${category}",airInfo.getCategory())
+                        .replace("${aqi}", airInfo.getAqi())
+                        .replace("${primary}", !NA.equals(airInfo.getPrimary()) ? "，当前主要污染物:"+airInfo.getPrimary() : "");
+            }else{
+                result = result
+                        .replace("${category}","-")
+                        .replace("${aqi}", "-")
+                        .replace("${primary}", "-");
+            }
+
             StringBuilder sb = new StringBuilder(result);
             for (WeatherDailyInfo dailyInfo : weather3d.getDaily()) {
                 // 若两个天气相同，取第一个，避免出现晴转晴的情况
