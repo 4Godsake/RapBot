@@ -24,6 +24,10 @@ public class CommandConstants {
 
     public static final String RISK_REGION_CHINESE_2 = "高危地区";
 
+    public static final String TODAY_HISTORY = "/today";
+
+    public static final String TODAY_HISTORY_CHINESE = "历史上的今天";
+
     public static final String TRUE = "true";
 
     public static final String FALSE = "false";

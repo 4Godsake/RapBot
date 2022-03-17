@@ -103,9 +103,4 @@ public class COVID19Api {
         }
         return highRiskRegion;
     }
-
-    @Test
-    public void test(){
-        logger.info(getCovData().getCovAddAllTreeData());
-    }
 }
