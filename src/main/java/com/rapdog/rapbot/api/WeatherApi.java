@@ -1,7 +1,5 @@
-package com.rapdog.rapbot.utils;
+package com.rapdog.rapbot.api;
 
-import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.rapdog.rapbot.bean.vo.*;

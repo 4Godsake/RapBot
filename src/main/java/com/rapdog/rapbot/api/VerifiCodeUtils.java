@@ -1,11 +1,9 @@
-package com.rapdog.rapbot.utils;
+package com.rapdog.rapbot.api;
 
 import cn.hutool.core.text.CharSequenceUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
-import com.sun.deploy.net.HttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

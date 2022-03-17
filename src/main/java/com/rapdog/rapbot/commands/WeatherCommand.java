@@ -1,9 +1,7 @@
 package com.rapdog.rapbot.commands;
 
-import cn.hutool.http.HttpUtil;
 import com.rapdog.rapbot.constants.CommandConstants;
-import com.rapdog.rapbot.ts3query.TsClientInfoQuery;
-import com.rapdog.rapbot.utils.WeatherApi;
+import com.rapdog.rapbot.api.WeatherApi;
 import love.forte.simbot.component.mirai.event.MiraiGroupMessageEvent;
 import love.forte.simbot.component.mirai.event.MiraiReceivedMessageContent;
 import net.mamoe.mirai.message.data.MessageChain;

@@ -2,28 +2,18 @@ package com.rapdog.rapbot.listener.group;
 
 import cn.hutool.core.text.CharSequenceUtil;
 import com.rapdog.rapbot.utils.MessageSendUtils;
-import com.rapdog.rapbot.utils.TikTokUtils;
+import com.rapdog.rapbot.api.TikTokUtils;
 import love.forte.simboot.annotation.Filter;
 import love.forte.simboot.annotation.Listener;
 import love.forte.simboot.filter.MatchType;
-import love.forte.simbot.Identifies;
 import love.forte.simbot.LoggerFactory;
-import love.forte.simbot.component.mirai.MiraiViaBotFileConfiguration;
 import love.forte.simbot.component.mirai.event.MiraiGroupMessageEvent;
 import love.forte.simbot.component.mirai.event.MiraiReceivedMessageContent;
-import love.forte.simbot.message.*;
-import love.forte.simbot.resources.FileResource;
-import net.mamoe.mirai.internal.message.FileMessageImpl;
-import net.mamoe.mirai.internal.message.FileMessageImplKt;
 import net.mamoe.mirai.message.data.MessageChain;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

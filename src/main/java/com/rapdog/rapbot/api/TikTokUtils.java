@@ -1,5 +1,6 @@
-package com.rapdog.rapbot.utils;
+package com.rapdog.rapbot.api;
 
+import com.rapdog.rapbot.utils.ImageUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;

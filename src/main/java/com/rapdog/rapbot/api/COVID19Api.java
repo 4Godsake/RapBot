@@ -1,4 +1,4 @@
-package com.rapdog.rapbot.utils;
+package com.rapdog.rapbot.api;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;

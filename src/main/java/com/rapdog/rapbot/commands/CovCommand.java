@@ -1,15 +1,13 @@
 package com.rapdog.rapbot.commands;
 
 import com.rapdog.rapbot.constants.CommandConstants;
-import com.rapdog.rapbot.utils.COVID19Api;
-import com.rapdog.rapbot.utils.WeatherApi;
+import com.rapdog.rapbot.api.COVID19Api;
 import love.forte.simbot.component.mirai.event.MiraiGroupMessageEvent;
 import love.forte.simbot.component.mirai.event.MiraiReceivedMessageContent;
 import net.mamoe.mirai.message.data.MessageChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

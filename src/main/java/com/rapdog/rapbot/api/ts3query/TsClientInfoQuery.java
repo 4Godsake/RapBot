@@ -1,4 +1,4 @@
-package com.rapdog.rapbot.ts3query;
+package com.rapdog.rapbot.api.ts3query;
 
 import com.github.theholywaffle.teamspeak3.TS3Api;
 import com.github.theholywaffle.teamspeak3.TS3Config;
