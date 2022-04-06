@@ -1,6 +1,9 @@
 package com.rapdog.rapbot.api;
 
+import com.rapdog.rapbot.utils.FileUtils;
 import com.rapdog.rapbot.utils.ImageUtils;
+import com.rapdog.rapbot.utils.SeleniumUtils;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -17,14 +20,11 @@ public class TikTokUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(TikTokUtils.class);
 
-    private static final String CHROME_DRIVER = "G:\\Asiainfo\\rapbot\\selenium\\chromedriver-98.0.4758.80.exe";
-
     private static final String TT_ANAL_URL = "https://www.daimadog.com/douyin";
-
 
     public static String getVideoUrl(String targetUrl) throws Exception {
         // 设置 chromedirver 的存放位置
-        System.getProperties().setProperty("webdriver.chrome.driver", CHROME_DRIVER);
+        System.getProperties().setProperty("webdriver.chrome.driver", SeleniumUtils.getChromeDrivePath());
         // 设置浏览器参数
         ChromeOptions chromeOptions = new ChromeOptions();
         //禁用沙箱

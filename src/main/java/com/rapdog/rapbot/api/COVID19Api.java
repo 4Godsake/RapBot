@@ -6,7 +6,8 @@ import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.rapdog.rapbot.bean.vo.CovData;
-import org.junit.Test;
+import com.rapdog.rapbot.utils.FileUtils;
+import com.rapdog.rapbot.utils.SeleniumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,8 +29,6 @@ public class COVID19Api {
     private static final Logger logger = LoggerFactory.getLogger(COVID19Api.class);
 
     private static final String HIGH_RISK_URL = "http://bmfw.www.gov.cn/yqfxdjcx/risk.html";
-
-    private static final String CHROME_DRIVER = "G:\\Asiainfo\\rapbot\\selenium\\chromedriver-98.0.4758.80.exe";
 
     private static String highRiskRegion;
 
@@ -65,8 +64,9 @@ public class COVID19Api {
     }
 
     private static String spiderHighRiskRegion(){
+
         // 设置 chromedirver 的存放位置
-        System.getProperties().setProperty("webdriver.chrome.driver", CHROME_DRIVER);
+        System.getProperties().setProperty("webdriver.chrome.driver", SeleniumUtils.getChromeDrivePath());
         // 设置浏览器参数
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--no-sandbox");//禁用沙箱

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * 复读指令监听器
+ * ts指令监听器
  * @author rapdog
  */
 @Component
