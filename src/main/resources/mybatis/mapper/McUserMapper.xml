@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rapdog.rapbot.mapper.McUserMapper">
+  <resultMap id="BaseResultMap" type="com.rapdog.rapbot.bean.bo.McUser">
+    <id column="user_qid" jdbcType="INTEGER" property="userQid" />
+    <result column="user_mcid" jdbcType="VARCHAR" property="userMcid" />
+    <result column="user_stat" jdbcType="VARCHAR" property="userStat" />
+    <result column="user_role" jdbcType="VARCHAR" property="userRole" />
+    <result column="mc_position" jdbcType="VARCHAR" property="mcPosition" />
+    <result column="user_point" jdbcType="INTEGER" property="userPoint" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ext_a" jdbcType="VARCHAR" property="extA" />
+    <result column="ext_b" jdbcType="VARCHAR" property="extB" />
+    <result column="ext_c" jdbcType="VARCHAR" property="extC" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_qid, user_mcid, user_stat, user_role, mc_position, user_point, create_time, 
+    update_time, ext_a, ext_b, ext_c
+  </sql>
+  <select id="selectByExample" parameterType="com.rapdog.rapbot.bean.bo.McUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mc_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mc_user
+    where user_qid = #{userQid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserMcid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mc_user
+    where user_mcid = #{userMcid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mc_user
+    where user_qid = #{userQid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rapdog.rapbot.bean.bo.McUserExample">
+    delete from mc_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rapdog.rapbot.bean.bo.McUser">
+    insert into mc_user (user_qid, user_mcid, user_stat, 
+      user_role, mc_position, user_point, 
+      create_time, update_time, ext_a, 
+      ext_b, ext_c)
+    values (#{userQid,jdbcType=INTEGER}, #{userMcid,jdbcType=VARCHAR}, #{userStat,jdbcType=VARCHAR}, 
+      #{userRole,jdbcType=VARCHAR}, #{mcPosition,jdbcType=VARCHAR}, #{userPoint,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{extA,jdbcType=VARCHAR}, 
+      #{extB,jdbcType=VARCHAR}, #{extC,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rapdog.rapbot.bean.bo.McUser">
+    insert into mc_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userQid != null">
+        user_qid,
+      </if>
+      <if test="userMcid != null">
+        user_mcid,
+      </if>
+      <if test="userStat != null">
+        user_stat,
+      </if>
+      <if test="userRole != null">
+        user_role,
+      </if>
+      <if test="mcPosition != null">
+        mc_position,
+      </if>
+      <if test="userPoint != null">
+        user_point,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="extA != null">
+        ext_a,
+      </if>
+      <if test="extB != null">
+        ext_b,
+      </if>
+      <if test="extC != null">
+        ext_c,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userQid != null">
+        #{userQid,jdbcType=INTEGER},
+      </if>
+      <if test="userMcid != null">
+        #{userMcid,jdbcType=VARCHAR},
+      </if>
+      <if test="userStat != null">
+        #{userStat,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null">
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="mcPosition != null">
+        #{mcPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="userPoint != null">
+        #{userPoint,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extA != null">
+        #{extA,jdbcType=VARCHAR},
+      </if>
+      <if test="extB != null">
+        #{extB,jdbcType=VARCHAR},
+      </if>
+      <if test="extC != null">
+        #{extC,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rapdog.rapbot.bean.bo.McUserExample" resultType="java.lang.Long">
+    select count(*) from mc_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mc_user
+    <set>
+      <if test="record.userQid != null">
+        user_qid = #{record.userQid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userMcid != null">
+        user_mcid = #{record.userMcid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userStat != null">
+        user_stat = #{record.userStat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRole != null">
+        user_role = #{record.userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mcPosition != null">
+        mc_position = #{record.mcPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPoint != null">
+        user_point = #{record.userPoint,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extA != null">
+        ext_a = #{record.extA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extB != null">
+        ext_b = #{record.extB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extC != null">
+        ext_c = #{record.extC,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mc_user
+    set user_qid = #{record.userQid,jdbcType=INTEGER},
+      user_mcid = #{record.userMcid,jdbcType=VARCHAR},
+      user_stat = #{record.userStat,jdbcType=VARCHAR},
+      user_role = #{record.userRole,jdbcType=VARCHAR},
+      mc_position = #{record.mcPosition,jdbcType=VARCHAR},
+      user_point = #{record.userPoint,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ext_a = #{record.extA,jdbcType=VARCHAR},
+      ext_b = #{record.extB,jdbcType=VARCHAR},
+      ext_c = #{record.extC,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rapdog.rapbot.bean.bo.McUser">
+    update mc_user
+    <set>
+      <if test="userMcid != null">
+        user_mcid = #{userMcid,jdbcType=VARCHAR},
+      </if>
+      <if test="userStat != null">
+        user_stat = #{userStat,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null">
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="mcPosition != null">
+        mc_position = #{mcPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="userPoint != null">
+        user_point = #{userPoint,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extA != null">
+        ext_a = #{extA,jdbcType=VARCHAR},
+      </if>
+      <if test="extB != null">
+        ext_b = #{extB,jdbcType=VARCHAR},
+      </if>
+      <if test="extC != null">
+        ext_c = #{extC,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_qid = #{userQid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rapdog.rapbot.bean.bo.McUser">
+    update mc_user
+    set user_mcid = #{userMcid,jdbcType=VARCHAR},
+      user_stat = #{userStat,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      mc_position = #{mcPosition,jdbcType=VARCHAR},
+      user_point = #{userPoint,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ext_a = #{extA,jdbcType=VARCHAR},
+      ext_b = #{extB,jdbcType=VARCHAR},
+      ext_c = #{extC,jdbcType=VARCHAR}
+    where user_qid = #{userQid,jdbcType=INTEGER}
+  </update>
+</mapper>
