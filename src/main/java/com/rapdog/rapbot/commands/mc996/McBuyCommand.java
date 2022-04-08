@@ -5,11 +5,11 @@ import com.rapdog.rapbot.bean.result.ResultVO;
 import com.rapdog.rapbot.commands.BaseCommand;
 import com.rapdog.rapbot.constants.CommandConstants;
 import com.rapdog.rapbot.exception.InvalidParamException;
+import com.rapdog.rapbot.service.McGoodsService;
 import com.rapdog.rapbot.service.McUserService;
 import com.rapdog.rapbot.utils.SpringUtil;
 import love.forte.simbot.component.mirai.event.MiraiGroupMessageEvent;
 import love.forte.simbot.component.mirai.event.MiraiReceivedMessageContent;
-import love.forte.simbot.definition.User;
 import net.mamoe.mirai.message.data.MessageChain;
 
 import java.util.ArrayList;
@@ -19,19 +19,19 @@ import java.util.List;
 /**
  * @author rapdog
  */
-public class McPayCommand extends BaseCommand {
+public class McBuyCommand extends BaseCommand {
 
-    public McPayCommand(){}
+    public McBuyCommand(){}
 
     /**
-     * /pay @
+     * /buy
      * @param event
      */
-    public McPayCommand(MiraiGroupMessageEvent event){
+    public McBuyCommand(MiraiGroupMessageEvent event){
         this.setEvent(event);
         // 指令配置
         this.setCommandString(CommandConstants.MC_BIND);
-        this.setCommandDesc("支付指令");
+        this.setCommandDesc("购买商品 示例：/buy [商品id] [数量]");
         // 截取指令参数
         MiraiReceivedMessageContent messageContent = event.getMessageContent();
         MessageChain nativeMessageChain = messageContent.getNativeMessageChain();
@@ -42,15 +42,19 @@ public class McPayCommand extends BaseCommand {
     }
 
     @Override
-    public void doCommand() throws InvalidParamException,NumberFormatException{
+    public void doCommand() throws InvalidParamException{
         long userQid = this.getEvent().getAuthor().getId().getValue();
-        if (this.getCommandArgs().size() != 2){
-            throw new InvalidParamException("入参有误，请参考/pay @xxx money");
+        String goodsIdStr = this.getCommandArgs().isEmpty() ? null :this.getCommandArgs().get(0);
+        String numStr = this.getCommandArgs().isEmpty() ? null :this.getCommandArgs().get(1);
+        if (StrUtil.isEmpty(goodsIdStr)){
+            throw new InvalidParamException("缺少指令参数[商品Id]");
         }
-        long targetQid = Long.parseLong(this.getCommandArgs().get(0).replace("@",""));
-        float amount = Float.parseFloat(this.getCommandArgs().get(1));
-        McUserService mcUserService = SpringUtil.getBean(McUserService.class);
-        ResultVO result = mcUserService.pay(userQid,targetQid,amount);
+        if (StrUtil.isEmpty(numStr)){
+            throw new InvalidParamException("缺少指令参数[购买数量]");
+        }
+        McGoodsService mcGoodsService = SpringUtil.getBean(McGoodsService.class);
+        // 绑定mcId
+        ResultVO result = mcGoodsService.bindUser(userQid,mcId);
         this.getEvent().sendBlocking(result.getMessage());
     }
 

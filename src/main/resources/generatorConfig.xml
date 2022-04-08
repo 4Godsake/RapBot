@@ -57,7 +57,7 @@
 				type="XMLMAPPER" />
 
 
-		<table tableName="mc_user" enableCountByExample="true"
+		<table tableName="mc_goods" enableCountByExample="true"
 			   enableUpdateByExample="true" enableDeleteByExample="true"
 			   enableSelectByExample="true" selectByExampleQueryId="true" >
 		</table>

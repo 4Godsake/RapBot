@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rapdog.rapbot.mapper.McGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.rapdog.rapbot.bean.bo.McGoods">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_desc" jdbcType="VARCHAR" property="goodsDesc" />
+    <result column="goods_class_name" jdbcType="VARCHAR" property="goodsClassName" />
+    <result column="goods_inventory" jdbcType="INTEGER" property="goodsInventory" />
+    <result column="goods_price" jdbcType="REAL" property="goodsPrice" />
+    <result column="create_qid" jdbcType="BIGINT" property="createQid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="ext_a" jdbcType="VARCHAR" property="extA" />
+    <result column="ext_b" jdbcType="VARCHAR" property="extB" />
+    <result column="ext_c" jdbcType="VARCHAR" property="extC" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goods_id, goods_name, goods_desc, goods_class_name, goods_inventory, goods_price, 
+    create_qid, create_time, update_time, ext_a, ext_b, ext_c
+  </sql>
+  <select id="selectByExample" parameterType="com.rapdog.rapbot.bean.bo.McGoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mc_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mc_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mc_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rapdog.rapbot.bean.bo.McGoodsExample">
+    delete from mc_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rapdog.rapbot.bean.bo.McGoods">
+    insert into mc_goods (goods_id, goods_name, goods_desc, 
+      goods_class_name, goods_inventory, goods_price, 
+      create_qid, create_time, update_time, 
+      ext_a, ext_b, ext_c)
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsDesc,jdbcType=VARCHAR}, 
+      #{goodsClassName,jdbcType=VARCHAR}, #{goodsInventory,jdbcType=INTEGER}, #{goodsPrice,jdbcType=REAL}, 
+      #{createQid,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{extA,jdbcType=VARCHAR}, #{extB,jdbcType=VARCHAR}, #{extC,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rapdog.rapbot.bean.bo.McGoods">
+    insert into mc_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsDesc != null">
+        goods_desc,
+      </if>
+      <if test="goodsClassName != null">
+        goods_class_name,
+      </if>
+      <if test="goodsInventory != null">
+        goods_inventory,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="createQid != null">
+        create_qid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="extA != null">
+        ext_a,
+      </if>
+      <if test="extB != null">
+        ext_b,
+      </if>
+      <if test="extC != null">
+        ext_c,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDesc != null">
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClassName != null">
+        #{goodsClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsInventory != null">
+        #{goodsInventory,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="createQid != null">
+        #{createQid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extA != null">
+        #{extA,jdbcType=VARCHAR},
+      </if>
+      <if test="extB != null">
+        #{extB,jdbcType=VARCHAR},
+      </if>
+      <if test="extC != null">
+        #{extC,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rapdog.rapbot.bean.bo.McGoodsExample" resultType="java.lang.Long">
+    select count(*) from mc_goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mc_goods
+    <set>
+      <if test="record.goodsId != null">
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsName != null">
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsDesc != null">
+        goods_desc = #{record.goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsClassName != null">
+        goods_class_name = #{record.goodsClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsInventory != null">
+        goods_inventory = #{record.goodsInventory,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsPrice != null">
+        goods_price = #{record.goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="record.createQid != null">
+        create_qid = #{record.createQid,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.extA != null">
+        ext_a = #{record.extA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extB != null">
+        ext_b = #{record.extB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extC != null">
+        ext_c = #{record.extC,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mc_goods
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_desc = #{record.goodsDesc,jdbcType=VARCHAR},
+      goods_class_name = #{record.goodsClassName,jdbcType=VARCHAR},
+      goods_inventory = #{record.goodsInventory,jdbcType=INTEGER},
+      goods_price = #{record.goodsPrice,jdbcType=REAL},
+      create_qid = #{record.createQid,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      ext_a = #{record.extA,jdbcType=VARCHAR},
+      ext_b = #{record.extB,jdbcType=VARCHAR},
+      ext_c = #{record.extC,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rapdog.rapbot.bean.bo.McGoods">
+    update mc_goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDesc != null">
+        goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClassName != null">
+        goods_class_name = #{goodsClassName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsInventory != null">
+        goods_inventory = #{goodsInventory,jdbcType=INTEGER},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=REAL},
+      </if>
+      <if test="createQid != null">
+        create_qid = #{createQid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="extA != null">
+        ext_a = #{extA,jdbcType=VARCHAR},
+      </if>
+      <if test="extB != null">
+        ext_b = #{extB,jdbcType=VARCHAR},
+      </if>
+      <if test="extC != null">
+        ext_c = #{extC,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rapdog.rapbot.bean.bo.McGoods">
+    update mc_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      goods_class_name = #{goodsClassName,jdbcType=VARCHAR},
+      goods_inventory = #{goodsInventory,jdbcType=INTEGER},
+      goods_price = #{goodsPrice,jdbcType=REAL},
+      create_qid = #{createQid,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      ext_a = #{extA,jdbcType=VARCHAR},
+      ext_b = #{extB,jdbcType=VARCHAR},
+      ext_c = #{extC,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+</mapper>
