@@ -34,6 +34,8 @@ public class CommandConstants {
 
     public static final String MC_MY_INFO_CHINESE = "我的信息";
 
+    public static final String MC_PAY = "/pay";
+
     public static final String TRUE = "true";
 
     public static final String FALSE = "false";
@@ -42,5 +44,5 @@ public class CommandConstants {
 
     public static final String F = "f";
 
-    public static final String[] ALL_COMMAND = new String[]{REPEAT, REPLY, TS, WEATHER, RISK_REGION, TODAY_HISTORY, MC_BIND, MC_MY_INFO};
+    public static final String[] ALL_COMMAND = new String[]{REPEAT, REPLY, TS, WEATHER, RISK_REGION, TODAY_HISTORY, MC_BIND, MC_MY_INFO, MC_PAY};
 }

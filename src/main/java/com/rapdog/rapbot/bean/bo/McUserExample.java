@@ -115,52 +115,52 @@ public class McUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserQidEqualTo(Integer value) {
+        public Criteria andUserQidEqualTo(Long value) {
             addCriterion("user_qid =", value, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidNotEqualTo(Integer value) {
+        public Criteria andUserQidNotEqualTo(Long value) {
             addCriterion("user_qid <>", value, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidGreaterThan(Integer value) {
+        public Criteria andUserQidGreaterThan(Long value) {
             addCriterion("user_qid >", value, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserQidGreaterThanOrEqualTo(Long value) {
             addCriterion("user_qid >=", value, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidLessThan(Integer value) {
+        public Criteria andUserQidLessThan(Long value) {
             addCriterion("user_qid <", value, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidLessThanOrEqualTo(Integer value) {
+        public Criteria andUserQidLessThanOrEqualTo(Long value) {
             addCriterion("user_qid <=", value, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidIn(List<Integer> values) {
+        public Criteria andUserQidIn(List<Long> values) {
             addCriterion("user_qid in", values, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidNotIn(List<Integer> values) {
+        public Criteria andUserQidNotIn(List<Long> values) {
             addCriterion("user_qid not in", values, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidBetween(Integer value1, Integer value2) {
+        public Criteria andUserQidBetween(Long value1, Long value2) {
             addCriterion("user_qid between", value1, value2, "userQid");
             return (Criteria) this;
         }
 
-        public Criteria andUserQidNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserQidNotBetween(Long value1, Long value2) {
             addCriterion("user_qid not between", value1, value2, "userQid");
             return (Criteria) this;
         }

@@ -24,13 +24,15 @@ public class McMyInfoCommandListener {
     @Filter(value = CommandConstants.MC_MY_INFO_CHINESE, matchType = MatchType.TEXT_EQUALS_IGNORE_CASE)
     @Listener
     public void listen(MiraiGroupMessageEvent event) {
-        logger.info("收到我的信息指令，开始处理...");
-        McMyInfoCommand mcMyInfoCommand = new McMyInfoCommand(event);
-        if (mcMyInfoCommand.checkAuth()){
-            mcMyInfoCommand.doCommand();
-        }else {
-            event.sendBlocking("权限验证失败");
+        if (event.getGroup().getId().getValue().equals(904238330L)){
+            logger.info("收到我的信息指令，开始处理...");
+            McMyInfoCommand mcMyInfoCommand = new McMyInfoCommand(event);
+            if (mcMyInfoCommand.checkAuth()){
+                mcMyInfoCommand.doCommand();
+            }else {
+                event.sendBlocking("权限验证失败");
+            }
+            logger.info("/我的信息指令，处理完成...");
         }
-        logger.info("/我的信息指令，处理完成...");
     }
 }

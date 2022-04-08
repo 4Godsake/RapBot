@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class McUser implements Serializable {
-    private Integer userQid;
+    private Long userQid;
 
     private String userMcid;
 
@@ -28,11 +28,11 @@ public class McUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getUserQid() {
+    public Long getUserQid() {
         return userQid;
     }
 
-    public void setUserQid(Integer userQid) {
+    public void setUserQid(Long userQid) {
         this.userQid = userQid;
     }
 
@@ -123,7 +123,7 @@ public class McUser implements Serializable {
         sb.append("\nmcId：").append(userMcid);
         sb.append("\nqq：").append(userQid);
         sb.append("\n职位：").append(mcPosition);
-        sb.append("\n贡献值：").append(userPoint);
+        sb.append("\n狗币：").append(userPoint);
         return sb.toString();
     }
 }

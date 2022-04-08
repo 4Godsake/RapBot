@@ -1,14 +1,15 @@
 package com.rapdog.rapbot.commands.mc996;
 
 import cn.hutool.core.util.StrUtil;
-import com.rapdog.rapbot.bean.bo.McUser;
 import com.rapdog.rapbot.bean.result.ResultVO;
 import com.rapdog.rapbot.commands.BaseCommand;
 import com.rapdog.rapbot.constants.CommandConstants;
+import com.rapdog.rapbot.exception.InvalidParamException;
 import com.rapdog.rapbot.service.McUserService;
 import com.rapdog.rapbot.utils.SpringUtil;
 import love.forte.simbot.component.mirai.event.MiraiGroupMessageEvent;
 import love.forte.simbot.component.mirai.event.MiraiReceivedMessageContent;
+import love.forte.simbot.definition.User;
 import net.mamoe.mirai.message.data.MessageChain;
 
 import java.util.ArrayList;
@@ -18,19 +19,19 @@ import java.util.List;
 /**
  * @author rapdog
  */
-public class McMyInfoCommand extends BaseCommand {
+public class McPayCommand extends BaseCommand {
 
-    public McMyInfoCommand(){}
+    public McPayCommand(){}
 
     /**
-     * /bindMC
+     * /pay @
      * @param event
      */
-    public McMyInfoCommand(MiraiGroupMessageEvent event){
+    public McPayCommand(MiraiGroupMessageEvent event){
         this.setEvent(event);
         // 指令配置
-        this.setCommandString(CommandConstants.MC_MY_INFO);
-        this.setCommandDesc("mc用户信息查询");
+        this.setCommandString(CommandConstants.MC_BIND);
+        this.setCommandDesc("支付指令");
         // 截取指令参数
         MiraiReceivedMessageContent messageContent = event.getMessageContent();
         MessageChain nativeMessageChain = messageContent.getNativeMessageChain();
@@ -41,12 +42,21 @@ public class McMyInfoCommand extends BaseCommand {
     }
 
     @Override
-    public void doCommand(){
-        long userQid = this.getEvent().getAuthor().getId().getValue();
+    public void doCommand() throws InvalidParamException,NumberFormatException{
+        int userQid = this.getEvent().getAuthor().getId().getValue().intValue();
+        if (this.getCommandArgs().size() != 2){
+            throw new InvalidParamException("入参有误，请参考/pay @xxx money");
+        }
+        long targetQid = Long.parseLong(this.getCommandArgs().get(0).replace("@",""));
+        int amount = Integer.parseInt(this.getCommandArgs().get(1));
         McUserService mcUserService = SpringUtil.getBean(McUserService.class);
-        // 绑定mcId
-        McUser user = mcUserService.getUserByQid(userQid);
-        this.getEvent().sendBlocking(user != null ? user.toString() : "未查询到用户信息");
+        ResultVO result = mcUserService.pay(userQid,targetQid,amount);
+        this.getEvent().sendBlocking(result.getMessage());
     }
 
+    @Override
+    public boolean checkAuth(){
+        Long senderId = this.getEvent().getAuthor().getId().getValue();
+        return this.getAuthIds().contains(senderId);
+    }
 }

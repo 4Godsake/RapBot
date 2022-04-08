@@ -57,7 +57,7 @@
 				type="XMLMAPPER" />
 
 
-		<table tableName="custom_command_group_rlt" enableCountByExample="true"
+		<table tableName="mc_user" enableCountByExample="true"
 			   enableUpdateByExample="true" enableDeleteByExample="true"
 			   enableSelectByExample="true" selectByExampleQueryId="true" >
 		</table>

@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.rapdog.rapbot.bean.result.ResultVO;
 import com.rapdog.rapbot.commands.BaseCommand;
 import com.rapdog.rapbot.constants.CommandConstants;
+import com.rapdog.rapbot.exception.InvalidParamException;
 import com.rapdog.rapbot.service.McUserService;
 import com.rapdog.rapbot.service.impl.McUserServiceImpl;
 import com.rapdog.rapbot.utils.CommandUtils;
@@ -49,11 +50,11 @@ public class McBindCommand extends BaseCommand {
     }
 
     @Override
-    public void doCommand(){
-        int userQid = this.getEvent().getAuthor().getId().getValue().intValue();
+    public void doCommand() throws InvalidParamException{
+        long userQid = this.getEvent().getAuthor().getId().getValue();
         String mcId = this.getCommandArgs().isEmpty() ? null :this.getCommandArgs().get(0);
         if (StrUtil.isEmpty(mcId)){
-            this.getEvent().sendBlocking("缺少指令参数[mcID]");
+            throw new InvalidParamException("缺少指令参数[mcID]");
         }
         McUserService mcUserService = SpringUtil.getBean(McUserService.class);
         // 绑定mcId

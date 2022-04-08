@@ -11,12 +11,21 @@ public interface McUserService {
      * @param mcId mcId
      * @return BaseResultMap
      */
-    ResultVO bindUser(int qId, String mcId);
+    ResultVO bindUser(long qId, String mcId);
 
     /**
      * 根据qq查询用户信息
      * @param qId qq
      * @return ResultVO
      */
-    McUser getUserByQid(int qId);
+    McUser getUserByQid(long qId);
+
+    /**
+     * 转账命令
+     * @param fromId 支付人qq
+     * @param toId 收款人qq
+     * @param amount 款项
+     * @return ResultVO
+     */
+    ResultVO pay(long fromId, long toId, int amount);
 }

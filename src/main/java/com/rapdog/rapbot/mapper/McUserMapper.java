@@ -13,7 +13,7 @@ public interface McUserMapper {
 
     int deleteByExample(McUserExample example);
 
-    int deleteByPrimaryKey(Integer userQid);
+    int deleteByPrimaryKey(Long userQid);
 
     int insert(McUser record);
 
@@ -21,7 +21,7 @@ public interface McUserMapper {
 
     List<McUser> selectByExample(McUserExample example);
 
-    McUser selectByPrimaryKey(Integer userQid);
+    McUser selectByPrimaryKey(Long userQid);
 
     McUser selectByUserMcid(String userMcid);
 

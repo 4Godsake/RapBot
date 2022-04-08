@@ -1,6 +1,7 @@
 package com.rapdog.rapbot.listener.group.commands.mc996;
 
 import com.rapdog.rapbot.commands.mc996.McBindCommand;
+import com.rapdog.rapbot.commands.mc996.McPayCommand;
 import com.rapdog.rapbot.constants.CommandConstants;
 import com.rapdog.rapbot.exception.InvalidParamException;
 import love.forte.simboot.annotation.Filter;
@@ -17,19 +18,19 @@ import org.springframework.stereotype.Component;
  * @author rapdog
  */
 @Component
-public class McBindCommandListener {
+public class McPayCommandListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(McBindCommandListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(McPayCommandListener.class);
 
-    @Filter(value = CommandConstants.MC_BIND, matchType = MatchType.TEXT_STARTS_WITH)
+    @Filter(value = CommandConstants.MC_PAY, matchType = MatchType.TEXT_STARTS_WITH)
     @Listener
     public void listen(MiraiGroupMessageEvent event) {
         try{
-            logger.info("收到/mcbind指令，开始处理...");
-            McBindCommand mcBindCommand = new McBindCommand(event);
-            mcBindCommand.doCommand();
-            logger.info("/mcbind指令，处理完成...");
-        }catch (InvalidParamException e){
+            logger.info("收到/pay指令，开始处理...");
+            McPayCommand mcPayCommand = new McPayCommand(event);
+            mcPayCommand.doCommand();
+            logger.info("/pay指令，处理完成...");
+        }catch (Exception e){
             event.sendBlocking(e.getMessage());
         }
 
