@@ -14,7 +14,7 @@ public class McUser implements Serializable {
 
     private String mcPosition;
 
-    private Integer userPoint;
+    private Float userPoint;
 
     private Date createTime;
 
@@ -68,11 +68,11 @@ public class McUser implements Serializable {
         this.mcPosition = mcPosition;
     }
 
-    public Integer getUserPoint() {
+    public Float getUserPoint() {
         return userPoint;
     }
 
-    public void setUserPoint(Integer userPoint) {
+    public void setUserPoint(Float userPoint) {
         this.userPoint = userPoint;
     }
 

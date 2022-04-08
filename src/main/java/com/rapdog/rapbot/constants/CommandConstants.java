@@ -36,6 +36,8 @@ public class CommandConstants {
 
     public static final String MC_PAY = "/pay";
 
+    public static final String MC_SHOP = "/shop";
+
     public static final String TRUE = "true";
 
     public static final String FALSE = "false";

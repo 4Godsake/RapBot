@@ -48,7 +48,7 @@ public class McPayCommand extends BaseCommand {
             throw new InvalidParamException("入参有误，请参考/pay @xxx money");
         }
         long targetQid = Long.parseLong(this.getCommandArgs().get(0).replace("@",""));
-        int amount = Integer.parseInt(this.getCommandArgs().get(1));
+        float amount = Float.parseFloat(this.getCommandArgs().get(1));
         McUserService mcUserService = SpringUtil.getBean(McUserService.class);
         ResultVO result = mcUserService.pay(userQid,targetQid,amount);
         this.getEvent().sendBlocking(result.getMessage());

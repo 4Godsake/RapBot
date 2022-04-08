@@ -455,52 +455,52 @@ public class McUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserPointEqualTo(Integer value) {
+        public Criteria andUserPointEqualTo(Float value) {
             addCriterion("user_point =", value, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointNotEqualTo(Integer value) {
+        public Criteria andUserPointNotEqualTo(Float value) {
             addCriterion("user_point <>", value, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointGreaterThan(Integer value) {
+        public Criteria andUserPointGreaterThan(Float value) {
             addCriterion("user_point >", value, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserPointGreaterThanOrEqualTo(Float value) {
             addCriterion("user_point >=", value, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointLessThan(Integer value) {
+        public Criteria andUserPointLessThan(Float value) {
             addCriterion("user_point <", value, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointLessThanOrEqualTo(Integer value) {
+        public Criteria andUserPointLessThanOrEqualTo(Float value) {
             addCriterion("user_point <=", value, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointIn(List<Integer> values) {
+        public Criteria andUserPointIn(List<Float> values) {
             addCriterion("user_point in", values, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointNotIn(List<Integer> values) {
+        public Criteria andUserPointNotIn(List<Float> values) {
             addCriterion("user_point not in", values, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointBetween(Integer value1, Integer value2) {
+        public Criteria andUserPointBetween(Float value1, Float value2) {
             addCriterion("user_point between", value1, value2, "userPoint");
             return (Criteria) this;
         }
 
-        public Criteria andUserPointNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserPointNotBetween(Float value1, Float value2) {
             addCriterion("user_point not between", value1, value2, "userPoint");
             return (Criteria) this;
         }

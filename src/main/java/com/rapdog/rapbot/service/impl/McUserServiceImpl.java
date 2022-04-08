@@ -45,7 +45,7 @@ public class McUserServiceImpl implements McUserService {
         user.setUserQid(qId);
         user.setUserMcid(mcId);
         user.setCreateTime(DateUtil.date());
-        user.setUserPoint(0);
+        user.setUserPoint(0f);
         user.setMcPosition("成员");
         return mcUserMapper.insertSelective(user) == 1 ? ResultVO.ok() : ResultVO.error();
     }
@@ -70,7 +70,7 @@ public class McUserServiceImpl implements McUserService {
      * @return ResultVO
      */
     @Override
-    public ResultVO pay(long fromId, long toId, int amount) throws InvalidParamException {
+    public ResultVO pay(long fromId, long toId, float amount) throws InvalidParamException {
         logger.info("McUserServiceImpl -> 转账入参fromId:{},toId:{},amount:{}",fromId,toId,amount);
         McUser fromUser = mcUserMapper.selectByPrimaryKey(fromId);
         McUser toUser = mcUserMapper.selectByPrimaryKey(toId);

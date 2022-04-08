@@ -27,5 +27,5 @@ public interface McUserService {
      * @param amount 款项
      * @return ResultVO
      */
-    ResultVO pay(long fromId, long toId, int amount);
+    ResultVO pay(long fromId, long toId, float amount);
 }
