@@ -73,7 +73,6 @@ public class McGoodsServiceImpl implements McGoodsService {
         // 减库存
         goods.setGoodsInventory(goods.getGoodsInventory()-amount);
         goodsMapper.updateByPrimaryKey(goods);
-
         return result;
     }
 }

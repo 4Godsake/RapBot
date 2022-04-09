@@ -36,10 +36,6 @@ public class McBindCommand extends BaseCommand {
         // 指令配置
         this.setCommandString(CommandConstants.MC_BIND);
         this.setCommandDesc("mc用户绑定");
-        // 写死的指令权限列表
-        List<Long> authIdsList = new ArrayList<>();
-        authIdsList.add(1025744898L);
-        this.setAuthIds(authIdsList);
         // 截取指令参数
         MiraiReceivedMessageContent messageContent = event.getMessageContent();
         MessageChain nativeMessageChain = messageContent.getNativeMessageChain();
@@ -62,9 +58,4 @@ public class McBindCommand extends BaseCommand {
         this.getEvent().sendBlocking(result.getMessage());
     }
 
-    @Override
-    public boolean checkAuth(){
-        Long senderId = this.getEvent().getAuthor().getId().getValue();
-        return this.getAuthIds().contains(senderId);
-    }
 }

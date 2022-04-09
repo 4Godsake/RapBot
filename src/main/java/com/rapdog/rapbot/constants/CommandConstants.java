@@ -38,6 +38,10 @@ public class CommandConstants {
 
     public static final String MC_SHOP = "/shop";
 
+    public static final String MC_BUY = "/buy";
+
+    public static final String MC_SAY = "/say";
+
     public static final String TRUE = "true";
 
     public static final String FALSE = "false";
