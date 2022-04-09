@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.logging.log4j.LogManager;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +22,13 @@ public class KafkaUtils {
 
     private static KafkaProducer<String, String> producer;
 
+    private static KafkaConsumer<String, String> consumer;
+
+
     private static void initProducer(){
         if (producer == null){
             // 发送kafka消息
             String servers = "81.70.59.107:9092";
-            String topic = "TestTopic";
             logger.info("createing producer");
             producer = KafkaUtils.createProducer(servers);
         }
@@ -41,7 +44,7 @@ public class KafkaUtils {
     public static KafkaConsumer<String, String> createConsumer(String servers, String topic) {
         Properties properties = new Properties();
         properties.put("bootstrap.servers", servers);
-        properties.put("group.id", "group-0");
+        properties.put("group.id", "rapbot-group");
         properties.put("enable.auto.commit", "false");
         properties.put("auto.commit.interval.ms", "1000");
         properties.put("auto.offset.reset", "earliest");
@@ -83,10 +86,35 @@ public class KafkaUtils {
         producer.send(new ProducerRecord<String, String>(topic, message));
     }
 
+    /**
+     * 拉取一次数据
+     * @param timeout
+     */
+    public static ConsumerRecords<String, String> readOne(int timeout) {
+        if (consumer == null){
+            initConsumer();
+        }
+        return consumer.poll(timeout);
+    }
+
+    public static KafkaConsumer<String, String> getConsumer(){
+        if (consumer == null){
+            initConsumer();
+        }
+        return consumer;
+    }
+
+    private static void initConsumer(){
+        String servers = "81.70.59.107:9092";
+        String topic = "McClientHeartbeatTopic";
+        LogManager.getLogger().info("createing consumer");
+        consumer = KafkaUtils.createConsumer(servers, topic);
+    }
+
     @Test
     public void readTest(){
         String servers = "81.70.59.107:9092";
-        String topic = "TestTopic";
+        String topic = "McClientHeartbeatTopic";
         logger.info("createing consumer");
         KafkaConsumer<String, String> consumer = createConsumer(servers, topic);
         logger.info("reading from consumer");
