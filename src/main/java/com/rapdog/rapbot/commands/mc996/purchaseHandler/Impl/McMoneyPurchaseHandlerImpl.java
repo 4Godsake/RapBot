@@ -6,6 +6,7 @@ import com.rapdog.rapbot.bean.bo.McUser;
 import com.rapdog.rapbot.bean.result.ResultVO;
 import com.rapdog.rapbot.commands.mc996.purchaseHandler.PurchaseHandler;
 import com.rapdog.rapbot.exception.InvalidParamException;
+import com.rapdog.rapbot.job.McClientHeartBeatJob;
 import com.rapdog.rapbot.service.McGoodsService;
 import com.rapdog.rapbot.service.McUserService;
 import com.rapdog.rapbot.utils.KafkaUtils;
@@ -37,19 +38,19 @@ public class McMoneyPurchaseHandlerImpl implements PurchaseHandler {
     @Override
     public ResultVO handle(int goodsId, long qid, int amount) {
         // 从topic中获取客户端的心跳信息，若心跳信息不正确则返回失败
-        ConsumerRecords<String, String> records =  KafkaUtils.readOne(1000);
-        boolean isClientAlive = false;
-        for (ConsumerRecord<String, String> record : records) {
-            logger.info("kafka读取到消息：{}",record.value());
-            Date heartbeat = DateUtil.parse(record.value(), DatePattern.NORM_DATETIME_PATTERN);
-            // 十秒内心跳有效
-            if (DateUtil.date().getTime()-heartbeat.getTime() <= 10000){
-                isClientAlive = true;
-            }
-            // commit消息
-            KafkaUtils.getConsumer().commitAsync();
-        }
-        if (isClientAlive){
+//        ConsumerRecords<String, String> records =  KafkaUtils.readOne(1000);
+//        boolean isClientAlive = false;
+//        for (ConsumerRecord<String, String> record : records) {
+//            logger.info("kafka读取到消息：{}",record.value());
+//            Date heartbeat = DateUtil.parse(record.value(), DatePattern.NORM_DATETIME_PATTERN);
+//            // 十秒内心跳有效
+//            if (DateUtil.date().getTime()-heartbeat.getTime() <= 10000){
+//                isClientAlive = true;
+//            }
+//            // commit消息
+//            KafkaUtils.getConsumer().commitAsync();
+//        }
+        if (McClientHeartBeatJob.isMcClientAlive()){
             // 发送kafka消息
             String topic = "TestTopic";
             McUserService mcUserService = SpringUtil.getBean(McUserService.class);
